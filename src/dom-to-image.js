@@ -244,12 +244,31 @@
                     var y = (canvas.height / 2) - (height / 2);
                     var ctx = canvas.getContext('2d');
                     ctx.drawImage(original, x, y, width, height);
-                    var image = clone = document.createElement('img');
+                    clone = new Image();
                     try {
-                        image.src = canvas.toDataURL();
+                        clone.src = canvas.toDataURL();
                     } catch (err) {
                         // Default the image to a transparent pixel (to prevent browser broken image)
-                        image.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+                        clone.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==';
+                    }
+                }
+            }
+
+            function cloneStyle() {
+                copyStyle(window.getComputedStyle(original), clone.style);
+
+                function copyStyle(source, target) {
+                    if (source.cssText) target.cssText = source.cssText;
+                    else copyProperties(source, target);
+
+                    function copyProperties(source, target) {
+                        util.asArray(source).forEach(function (name) {
+                            target.setProperty(
+                                name,
+                                source.getPropertyValue(name),
+                                source.getPropertyPriority(name)
+                            );
+                        });
                     }
                 }
             }
