@@ -359,7 +359,6 @@
                 node.setAttribute('xmlns', 'http://www.w3.org/1999/xhtml');
                 return new XMLSerializer().serializeToString(node);
             })
-            .then(util.escapeXhtml)
             .then(function (xhtml) {
                 return '<foreignObject x="0" y="0" width="100%" height="100%">' + xhtml + '</foreignObject>';
             })
@@ -368,7 +367,7 @@
                     foreignObject + '</svg>';
             })
             .then(function (svg) {
-                return 'data:image/svg+xml;charset=utf-8,' + svg;
+                return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
             });
     }
 

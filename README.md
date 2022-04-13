@@ -245,6 +245,9 @@ for you, following steps are taken:
 -   at the time of writing, Firefox has a problem with some external stylesheets
     (see issue #13). In such case, the error will be caught and logged.  
 
+## Build with Grunt
+First `npm i -g grunt`. And then use `grunt uglify` command to build & minify into `/dist` folder.
+
 ## Authors
 
 Anatolii Saienko, Paul Bakaus (original idea)
